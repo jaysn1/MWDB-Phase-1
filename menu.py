@@ -8,13 +8,13 @@ Created on Sat Sep  5 02:48:41 2020
 from consolemenu import *
 from consolemenu.items import *
 import config
-from Normalizer import Normalizer
+import task_1_driver
 
 menu = ConsoleMenu("Phase 1")
 
 function_item = FunctionItem("Task 1", 
-                             Normalizer.get_normalized_files, 
-                             args=[config.file_path, config.total_files])
+                             task_1_driver.do_task_1, 
+                             args=[config.file_path, config.normalized_file_path, config.total_files, config.resolution])
 
 selection_menu = SelectionMenu(["item1", "item2", "item3"])
 

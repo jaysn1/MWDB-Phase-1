@@ -20,8 +20,10 @@ def get_quantized_files(NORMALIZED_PATH, QUANTIZED_PATH, total_files, resolution
     Quantizer.save_quantized_files(NORMALIZED_PATH, QUANTIZED_PATH, total_files, range_starts)
 
 def get_word_files(QUANTIZED_PATH, WORD_FILE_PATH, total_files, window_length, stride):
+    print("\nVectorizing all files...")
     for file_no in tqdm(range(1, total_files+1)):
-        word_file = Vectorizer.wordify(QUANTIZED_PATH, file_no, window_length, stride)
+        file_name = '{0}/{1}.csv'.format(QUANTIZED_PATH, file_no)
+        word_file = Vectorizer.wordify(file_name, file_no, window_length, stride)
         Vectorizer.save_word_file(WORD_FILE_PATH, file_no, word_file)
     
     

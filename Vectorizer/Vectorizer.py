@@ -8,8 +8,7 @@ Created on Mon Sep  7 18:46:53 2020
 import pandas as pd
 
 
-def wordify(QUANTIZED_PATH, file_no, window_length, stride):
-    file_name = '{0}/{1}.csv'.format(QUANTIZED_PATH, file_no)
+def wordify(file_name, file_no, window_length, stride):
     data = pd.read_csv(file_name, header=None)
     word_file = []
     for sensor_id in range(len(data)):
@@ -17,8 +16,8 @@ def wordify(QUANTIZED_PATH, file_no, window_length, stride):
         sensor_vector = []
         while (t + stride) < len(data.iloc[sensor_id,:]):
             word = []
-            idx = [int(file_no), sensor_id, t]
-            win_vector = list(data.iloc[sensor_id, t : (t+window_length)])
+            idx = (int(file_no), sensor_id + 1, t)
+            win_vector = tuple(data.iloc[sensor_id, t : (t+window_length)])
             
             word.append(idx)
             word.append(win_vector)

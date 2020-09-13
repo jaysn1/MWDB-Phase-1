@@ -31,8 +31,8 @@ def calculate_lengths(resolution):
         length = (2 * numerator) / denominator
         lengths.append(length)
         range_starts.append(range_starts[-1] + length)
-    print(range_starts)
-    print(lengths)
+    # print(range_starts)
+    # print(lengths)
     range_starts[0] = -1.1
     return range_starts
 

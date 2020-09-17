@@ -12,6 +12,7 @@ import config
 import task_1_driver
 import task_2_driver
 import task_3_driver
+import task_4_driver
 
 
 def run_all_tasks():
@@ -35,7 +36,12 @@ function_item_2 = FunctionItem("Run Task 2",
 
 function_item_3 = FunctionItem("Run Task 3",
                                task_3_driver.do_task_3,
-                               args=[config.file_path_for_visualization, config.visualization_choice])
+                               args=[config.vector_file_path, config.file_choice, config.visualization_choice])
+
+function_item_4 = FunctionItem("Run Task 4",
+                               task_4_driver.do_task_4,
+                               args=[config.query_file, config.resolution, config.query_file_no, 
+                                     config.window_length, config.stride])
 
 function_item_5 = FunctionItem("Run all tasks",
                                run_all_tasks)
@@ -43,6 +49,7 @@ function_item_5 = FunctionItem("Run all tasks",
 menu.append_item(function_item_1)
 menu.append_item(function_item_2)
 menu.append_item(function_item_3)
+menu.append_item(function_item_4)
 menu.append_item(function_item_5)
 
 menu.show()

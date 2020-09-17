@@ -8,6 +8,7 @@ from Normalizer import Normalizer
 from Quantizer import Quantizer
 from Vectorizer import Vectorizer
 from tqdm import tqdm
+import pandas as pd
 
 def get_normalized_files(PATH, NORMALIZED_PATH, total_files):
     data, file_sizes = Normalizer.get_files(PATH, total_files)
@@ -23,17 +24,19 @@ def get_word_files(QUANTIZED_PATH, WORD_FILE_PATH, total_files, window_length, s
     print("\nVectorizing all files...")
     for file_no in tqdm(range(1, total_files+1)):
         file_name = '{0}/{1}.csv'.format(QUANTIZED_PATH, file_no)
-        word_file = Vectorizer.wordify(file_name, file_no, window_length, stride)
+        data = pd.read_csv(file_name, header=None)
+        word_file = Vectorizer.wordify(data, file_no, window_length, stride)
         Vectorizer.save_word_file(WORD_FILE_PATH, file_no, word_file)
     
     
 def do_task_1(PATH, NORMALIZED_PATH, QUANTIZED_PATH, WORD_FILE_PATH, total_files, resolution, window_length, stride):
     # data = get_normalized_files(PATH, NORMALIZED_PATH, total_files)
-    Normalizer.normalize_file_wise(PATH, NORMALIZED_PATH, total_files)
+    data = Normalizer.normalize_file_wise(PATH, NORMALIZED_PATH, total_files)
     get_quantized_files(NORMALIZED_PATH, QUANTIZED_PATH, total_files, resolution)
     get_word_files(QUANTIZED_PATH, WORD_FILE_PATH, total_files, window_length, stride)
    
     # return data
 # data = do_task_1('C:/Users/Jaysn/Anaconda3/envs/MWDB_Phase_1/src/Data/Z', 
-#                  'C:/Users/Jaysn/Anaconda3/envs/MWDB_Phase_1/src/Data/normalized_Z', 
-#                  'C:/Users/Jaysn/Anaconda3/envs/MWDB_Phase_1/src/Data/quantized_Z', 60, 3, 3, 2)
+#                   'C:/Users/Jaysn/Anaconda3/envs/MWDB_Phase_1/src/Data/normalized_Z', 
+#                   'C:/Users/Jaysn/Anaconda3/envs/MWDB_Phase_1/src/Data/quantized_Z',
+#                   'C:/Users/Jaysn/Anaconda3/envs/MWDB_Phase_1/src/Data/Word_Files', 60, 3, 3, 2)

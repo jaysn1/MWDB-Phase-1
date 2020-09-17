@@ -7,9 +7,13 @@ Created on Sun Sep 13 14:00:59 2020
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-def get_data_for_viz(file_path, choice):
-    with open(file_path, 'r') as file:
+def get_data_for_viz(file_path, file_choice, choice):
+    file_name = '{0}/vectors.txt'.format(file_path)
+    with open(file_name, 'r') as file:
         data = eval(file.read())
+        
+    data = data[file_choice]
+    
     TFs = []
     TFIDFs = []
     TFIDF_2s = []
@@ -18,7 +22,6 @@ def get_data_for_viz(file_path, choice):
         for row in data:
             TF = [vector[0] for vector in row]
             TFs.append(TF)
-        print(data)
         return TFs
     elif choice == 2:
         for row in data:
@@ -37,11 +40,12 @@ def get_data_for_viz(file_path, choice):
 
 def create_heatmap(data):
     plt.imshow(data, cmap='gray')
+    plt.show()
     # sns.heatmap(data)
 
-def do_task_3(file_path, choice):
-    data = get_data_for_viz(file_path, choice)
+def do_task_3(file_path, file_choice, choice):
+    data = get_data_for_viz(file_path, file_choice, choice)
     create_heatmap(data)
-    return data
+    # return data
     
-data = do_task_3('C:/Users/Jaysn/Anaconda3/envs/MWDB_Phase_1/src/Data/Vectors/vectors_1.txt', 1)
+data = do_task_3('C:/Users/Jaysn/Anaconda3/envs/MWDB_Phase_1/src/Data/Z', 1, 1)

@@ -10,7 +10,8 @@ from tqdm import tqdm
 def term_frequency(words):
     K = len(words)
     counts = {}
-    for word in words:
+    word_set = set(words)
+    for word in word_set:
         # if not counts[word]:
         counts[word] = words.count(word)
     for k, count in counts.items():
@@ -18,18 +19,11 @@ def term_frequency(words):
     return counts
 
 
-def calculate_TF(WORD_FILE_PATH, total_files):
+def calculate_TF(documents_gesture_wise_flatten_dict):
     TFs_dict = {}
     
-    for file_no in tqdm(range(1, total_files+1)):
-        file_name = '{0}/{1}.wrd'.format(WORD_FILE_PATH, file_no)
-        with open(file_name, 'r') as word_file:
-            gesture_words = word_file.read()
-        gesture_words = eval(gesture_words)
-        gesture_trem_frequency = []
-        for sensor_id in range(len(gesture_words)):
-            sensor_gesture_words = list(map(lambda x: x[1], gesture_words[sensor_id]))
-            termFrequencies = term_frequency(sensor_gesture_words)
-            gesture_trem_frequency.append(termFrequencies)
-        TFs_dict[file_no] = gesture_trem_frequency
+    for file_no, gesture_words in tqdm(documents_gesture_wise_flatten_dict.items()):
+        gesture_term_frequency = term_frequency(gesture_words)
+        TFs_dict[file_no] = gesture_term_frequency
+        
     return TFs_dict

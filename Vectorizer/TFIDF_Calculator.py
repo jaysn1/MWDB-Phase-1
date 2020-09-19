@@ -20,7 +20,7 @@ def calculate_TFIDF(term_frequencies_dict, IDFs_dict):
         for word, tf in gesture_tfs.items():
             idf = IDFs_dict[word]
             
-            word_tfidf = tfidf(tf, idf, max_freq)
+            word_tfidf = tf*idf
             TFIDFs_dict[file_no][word] = word_tfidf
             
     return TFIDFs_dict

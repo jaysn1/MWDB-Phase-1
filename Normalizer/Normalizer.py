@@ -67,12 +67,9 @@ def normalize_file_wise(PATH, NORMALIZED_PATH, total_files):
             row = data.iloc[i,:]
             minimum = min(row)
             maximum = max(row)
-            print(maximum)
-            print(minimum)
             norm_row = pd.DataFrame([MINIMUM_VALUE + ((MAXIMUM_VALUE - MINIMUM_VALUE) * (data.iloc[i,j] - minimum) / (maximum - minimum)) for j in range(len(row))])
             normalized_data = pd.concat([normalized_data, norm_row], axis=1, ignore_index=True)
         normalized_data = normalized_data.transpose()
-        return normalized_data
         
         file_name = '{0}/{1}.csv'.format(NORMALIZED_PATH, file_no)
         normalized_data.to_csv(file_name, index=False, header=False)

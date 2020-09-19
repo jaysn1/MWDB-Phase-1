@@ -17,7 +17,7 @@ def calculate_IDF(documents_gesture_wise_flatten_dict, total_files):
     N = total_files
     IDFs_dict = {}
     
-    for word in word_set:
+    for word in tqdm(word_set):
         m = 0
         for document in documents_gesture_wise_flatten_dict.values():
             if word in document:
@@ -27,9 +27,9 @@ def calculate_IDF(documents_gesture_wise_flatten_dict, total_files):
             IDFs_dict[word] = idf
     return IDFs_dict
 
-def calculate_IDF2(documents_gesture_wise_dict, total_files):
+def calculate_IDF2(documents_gesture_wise_for_IDF2_dict, total_files): ############# Remove the sensor id from the words
     word_sets = {}
-    for file_no, documents in documents_gesture_wise_dict.items():
+    for file_no, documents in documents_gesture_wise_for_IDF2_dict.items():
         gesture_word_set = set()
         for document in documents:
             gesture_word_set.update(document)
@@ -42,7 +42,7 @@ def calculate_IDF2(documents_gesture_wise_dict, total_files):
         gesture_IDFs = {}
         for word in words:
             m = 0
-            for document in documents_gesture_wise_dict[file_no]:
+            for document in documents_gesture_wise_for_IDF2_dict[file_no]:
                 if word in document:
                     m += 1
             
